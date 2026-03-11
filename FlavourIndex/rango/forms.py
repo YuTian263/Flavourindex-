@@ -19,3 +19,13 @@ class UserRegistrationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+def RecipeForm(forms.ModelForm):
+    title = forms.CharField(max_length=100)
+    description = forms.CharField(widget=forms.Textarea)
+    ingredients = forms.CharField(widget=forms.Textarea)
+    instructions = forms.CharField(widget=forms.Textarea)
+
+    class Meta:
+        model = Recipe
+        fields = ("title", "description", "ingredients", "instructions")
