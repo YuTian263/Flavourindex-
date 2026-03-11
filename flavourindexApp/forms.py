@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .models import Recipe
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -20,7 +21,7 @@ class UserRegistrationForm(UserCreationForm):
             user.save()
         return user
 
-def RecipeForm(forms.ModelForm):
+class RecipeForm(forms.ModelForm):
     title = forms.CharField(max_length=100)
     description = forms.CharField(widget=forms.Textarea)
     ingredients = forms.CharField(widget=forms.Textarea)
