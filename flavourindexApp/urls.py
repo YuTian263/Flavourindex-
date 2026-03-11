@@ -3,11 +3,16 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from flavourindexApp import views
 
-urlpatterns = [
-    path("admin/", admin.site.urls),
+app_name = 'flavourindexApp'
 
-    path("accounts/login", auth_views.LoginView.as_view(template_name = "login.html"), name="login"),
-    path("accounts/logout", auth_views.LogoutView.as_view(template_name = "logout.html"), name="logout"),
-    path("accounts/register", views.register, name="register"),
+urlpatterns = [
+    path('', views.home, name='home'),
+    path('view_recipes/', views.view_recipes, name='view_recipes'),
+    path('post_recipe/', views.post_recipe, name = 'post_recipe'),
+    path()
+
+    path("accounts/login/", auth_views.LoginView.as_view(template_name = "login.html"), name="login"),
+    path("accounts/logout/", auth_views.LogoutView.as_view(template_name = "logout.html"), name="logout"),
+    path("accounts/register/", views.register, name="register"),
 ]
 

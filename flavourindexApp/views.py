@@ -6,6 +6,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 # Create your views here.
+
+def home(request):
+    response = render(request, 'flavourindex/home.html')
+    return response
+
 def register(request): 
     if request.method == "POST":
         form  = UserRegistrationForm(request.POST)
@@ -15,10 +20,7 @@ def register(request):
             return redirect("login")
     else:
         form = UserRegistrationForm()
-    return render(request, "register.html", {"form": form}) 
-
-def index(request):
-    return render(request, "index.html")    
+    return render(request, "flavourindex/register.html", {"form": form})    
 
 @login_required
 def add_receipe(request):
@@ -27,7 +29,7 @@ def add_receipe(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Recipe added successfully.")
-            return redirect("index")
+            return redirect("home")
     else:
         form = RecipeForm()
-    return render(request, "add_receipe.html", {"form": form})
+    return render(request, "flavourindex/add_receipe.html", {"form": form})
