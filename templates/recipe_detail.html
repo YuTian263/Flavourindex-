@@ -4,7 +4,7 @@
 
 {% block body_block %}
 
-<a href="{% url 'index' %}" class="btn btn-secondary" style="margin-bottom:20px;">← Back</a>
+<a href="{% url 'flavourindexApp:index' %}" class="btn btn-secondary" style="margin-bottom:20px;">← Back</a>
 
 <div style="display:grid; grid-template-columns: 1fr 260px; gap:30px; align-items:start;">
 
@@ -64,7 +64,7 @@
             </form>
         </div>
         {% else %}
-        <p style="color:#888; font-size:0.875rem; margin-bottom:20px;"><a href="{% url 'login' %}">Login</a> to leave a review.</p>
+        <p style="color:#888; font-size:0.875rem; margin-bottom:20px;"><a href="{% url 'flavourindexApp:login' %}">Login</a> to leave a review.</p>
         {% endif %}
 
         {% if reviews %}
