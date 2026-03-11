@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ recipe.title }}{% endblock %}
+
+{% block body_block %}
+
+<a href="{% url 'index' %}" class="btn btn-secondary" style="margin-bottom:20px;">← Back</a>
+
+<div style="display:grid; grid-template-columns: 1fr 260px; gap:30px; align-items:start;">
+
+    <!-- Left column -->
+    <div>
+        <h2 style="margin-bottom:8px;">{{ recipe.title }}</h2>
+        <p style="color:#888; font-size:0.85rem; margin-bottom:16px;">
+            By {{ recipe.author.username }}
+            {% if recipe.category %} &middot; {{ recipe.category }}{% endif %}
+            {% if recipe.difficulty %} &middot; {{ recipe.difficulty }}{% endif %}
+        </p>
+
+        <p style="margin-bottom:20px;">{{ recipe.description }}</p>
+
+        <hr>
+
+        <h4 style="margin-bottom:10px;">Ingredients</h4>
+        <ul style="padding-left:20px; margin-bottom:20px;">
+            {% for line in recipe.ingredients.splitlines %}
+            {% if line.strip %}<li style="margin-bottom:4px; font-size:0.9rem;">{{ line }}</li>{% endif %}
+            {% endfor %}
+        </ul>
+
+        <h4 style="margin-bottom:10px;">Instructions</h4>
+        <ol style="padding-left:20px; margin-bottom:20px;">
+            {% for step in recipe.instructions.splitlines %}
+            {% if step.strip %}<li style="margin-bottom:8px; font-size:0.9rem;">{{ step }}</li>{% endif %}
+            {% endfor %}
+        </ol>
+
+        {% if user == recipe.author or user.is_staff %}
+        <hr>
+        {# <a href="{% url 'edit_recipe' recipe.id %}" class="btn btn-secondary">Edit</a> #}
+        {# <a href="{% url 'delete_recipe' recipe.id %}" class="btn btn-secondary">Delete</a> #}
+        {% endif %}
+
+        <hr>
+
+        <h4 style="margin-bottom:16px;">Reviews</h4>
+
+        {% if user.is_authenticated %}
+        <div class="card" style="margin-bottom:20px;">
+            <form method="POST" action="#">
+                {% csrf_token %}
+                <label>Your Rating</label>
+                <div id="stars" style="display:flex; gap:6px; font-size:1.8rem; margin-bottom:12px; cursor:pointer;">
+                    <span class="star" data-val="1" style="color:#ccc;">★</span>
+                    <span class="star" data-val="2" style="color:#ccc;">★</span>
+                    <span class="star" data-val="3" style="color:#ccc;">★</span>
+                    <span class="star" data-val="4" style="color:#ccc;">★</span>
+                    <span class="star" data-val="5" style="color:#ccc;">★</span>
+                </div>
+                <input type="hidden" name="rating" id="rating-input" value="">
+                <label>Comment (optional)</label>
+                <textarea name="comment" rows="3" placeholder="What did you think?"></textarea>
+                <button type="submit" class="btn btn-primary" style="margin-top:12px;">Post Review</button>
+            </form>
+        </div>
+        {% else %}
+        <p style="color:#888; font-size:0.875rem; margin-bottom:20px;"><a href="{% url 'login' %}">Login</a> to leave a review.</p>
+        {% endif %}
+
+        {% if reviews %}
+            {% for review in reviews %}
+            <div class="card" style="margin-bottom:10px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                    <strong style="font-size:0.9rem;">{{ review.author.username }}</strong>
+                    <small style="color:#aaa;">{{ review.created_at|date:"M j, Y" }}</small>
+                </div>
+                <div style="color:#f5a623; margin-bottom:4px;">
+                    {% for i in "12345" %}{% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}{% endfor %}
+                </div>
+                {% if review.comment %}
+                <p style="font-size:0.875rem; color:#555;">{{ review.comment }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+        <p style="color:#aaa; font-size:0.875rem;">No reviews yet.</p>
+        {% endif %}
+    </div>
+
+    <!-- Right column -->
+    <div>
+        {% if recipe.image %}
+        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="width:100%; border-radius:6px; margin-bottom:16px;">
+        {% endif %}
+
+        <div class="card" style="font-size:0.875rem;">
+            {% if recipe.prep_time %}
+            <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #f0f0f0;">
+                <span style="color:#888;">Prep time</span><span>{{ recipe.prep_time }} min</span>
+            </div>
+            {% endif %}
+            {% if recipe.cook_time %}
+            <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #f0f0f0;">
+                <span style="color:#888;">Cook time</span><span>{{ recipe.cook_time }} min</span>
+            </div>
+            {% endif %}
+            {% if recipe.servings %}
+            <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #f0f0f0;">
+                <span style="color:#888;">Servings</span><span>{{ recipe.servings }}</span>
+            </div>
+            {% endif %}
+            {% if recipe.difficulty %}
+            <div style="display:flex; justify-content:space-between; padding:6px 0;">
+                <span style="color:#888;">Difficulty</span><span>{{ recipe.difficulty }}</span>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const stars = document.querySelectorAll('.star');
+    const input = document.getElementById('rating-input');
+    stars.forEach(star => {
+        star.addEventListener('click', () => {
+            const val = parseInt(star.dataset.val);
+            input.value = val;
+            stars.forEach(s => s.style.color = parseInt(s.dataset.val) <= val ? '#f5a623' : '#ccc');
+        });
+        star.addEventListener('mouseover', () => {
+            const val = parseInt(star.dataset.val);
+            stars.forEach(s => s.style.color = parseInt(s.dataset.val) <= val ? '#f5a623' : '#ccc');
+        });
+    });
+    document.getElementById('stars').addEventListener('mouseleave', () => {
+        const val = parseInt(input.value) || 0;
+        stars.forEach(s => s.style.color = parseInt(s.dataset.val) <= val ? '#f5a623' : '#ccc');
+    });
+</script>
+
+{% endblock %}
