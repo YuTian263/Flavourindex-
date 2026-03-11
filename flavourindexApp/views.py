@@ -20,6 +20,7 @@ def register(request):
 def index(request):
     return render(request, "index.html")    
 
+@login_required
 def add_receipe(request):
     if request.method == "POST": 
         form = RecipeForm(request.POST)
