@@ -3,7 +3,9 @@ from email import message
 from django.shortcuts import redirect, render
 from .forms import UserRegistrationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.urls import reverse
 
 # Create your views here.
 
@@ -23,7 +25,7 @@ def register(request):
     return render(request, "flavourindex/register.html", {"form": form})    
 
 @login_required
-def add_receipe(request):
+def post_recipe(request):
     if request.method == "POST": 
         form = RecipeForm(request.POST)
         if form.is_valid():
@@ -32,4 +34,9 @@ def add_receipe(request):
             return redirect("home")
     else:
         form = RecipeForm()
-    return render(request, "flavourindex/add_receipe.html", {"form": form})
+    return render(request, "flavourindex/post_receipe.html", {"form": form})
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect(reverse('flavourindexApp:home'))
