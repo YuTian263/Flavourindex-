@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body_block %}
+
+<h2>All Recipes</h2>
+<p style="color:#888; margin-bottom:20px;">Browse recipes from the community. Login to add your own!</p>
+
+<form method="GET" action="" style="margin-bottom:20px; display:flex; gap:8px;">
+    <input type="text" name="q" placeholder="Search recipes..." value="{{ request.GET.q }}" style="max-width:300px;">
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+{% if user.is_authenticated %}
+<a href="{% url 'flavourindexApp:add_recipe' %}" class="btn btn-primary" style="margin-bottom:24px;">+ Add a Recipe</a>
+{% endif %}
+
+{% if recipes %}
+<div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:16px;">
+    {% for recipe in recipes %}
+    <div class="card">
+        {% if recipe.image %}
+        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="width:100%; height:150px; object-fit:cover; border-radius:4px; margin-bottom:12px;">
+        {% endif %}
+        <h4 style="margin-bottom:6px;">{{ recipe.title }}</h4>
+        <p style="font-size:0.85rem; color:#666; margin-bottom:10px;">{{ recipe.description|truncatewords:15 }}</p>
+        {% if recipe.category %}
+        <span style="font-size:0.75rem; background:#eee; padding:2px 8px; border-radius:20px; color:#555;">{{ recipe.category }}</span>
+        {% endif %}
+        <div style="margin-top:14px; display:flex; justify-content:space-between; align-items:center;">
+            <small style="color:#aaa;">By {{ recipe.author.username }}</small>
+            <a href="{% url 'flavourindexApp:recipe_detail' recipe.id %}" class="btn btn-primary" style="padding:5px 12px; font-size:0.8rem;">View</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p style="color:#888;">No recipes yet. Be the first to add one!</p>
+{% endif %}
+
+{% endblock %}

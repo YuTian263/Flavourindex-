@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body_block %}
+
+<div style="max-width:360px; margin:0 auto;">
+<div class="card">
+    <h2 style="margin-bottom:6px;">Register</h2>
+    <p style="color:#888; font-size:0.875rem; margin-bottom:16px;">Create a free account to share recipes.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label>Username</label>
+        <input type="text" name="username" value="{{ form.username.value|default:'' }}" placeholder="choose_a_username" required>
+        {% for e in form.username.errors %}<p class="field-error">{{ e }}</p>{% endfor %}
+
+        <label>Email <span style="color:#aaa; font-weight:normal;">(optional)</span></label>
+        <input type="email" name="email" value="{{ form.email.value|default:'' }}" placeholder="you@email.com">
+
+        <label>Password</label>
+        <input type="password" name="password1" placeholder="Choose a password" required>
+        {% for e in form.password1.errors %}<p class="field-error">{{ e }}</p>{% endfor %}
+
+        <label>Confirm Password</label>
+        <input type="password" name="password2" placeholder="Repeat your password" required>
+        {% for e in form.password2.errors %}<p class="field-error">{{ e }}</p>{% endfor %}
+
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:16px;">Create Account</button>
+    </form>
+
+    <p style="text-align:center; margin-top:14px; font-size:0.875rem; color:#888;">
+        Already have an account? <a href="{% url 'flavourindexApp:login' %}">Login here</a>
+    </p>
+</div>
+</div>
+
+{% endblock %}

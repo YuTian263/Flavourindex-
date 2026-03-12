@@ -1,18 +1,15 @@
-from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from flavourindexApp import views
+from . import views
 
-app_name = 'flavourindexApp'
+app_name = "flavourindexApp"
+
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('view_recipes/', views.view_recipes, name='view_recipes'),
-    path('post_recipe/', views.post_recipe, name = 'post_recipe'),
-    path('recently_viewed/', views.recently_viewed, name='recently_viewed'),
-
-    path("accounts/login/", auth_views.LoginView.as_view(template_name = "login.html"), name="login"),
-    path("accounts/logout/", auth_views.LogoutView.as_view(template_name = "logout.html"), name="logout"),
-    path("accounts/register/", views.register, name="register"),
+    path("", views.index, name="index"),
+    path("recipe/<int:recipe_id>/", views.recipe_detail, name="recipe_detail"),
+    path("add-recipe/", views.add_recipe, name="add_recipe"),
+    path("login/", auth_views.LoginView.as_view(template_name="login.html"), name="login"),
+    path("logout/", auth_views.LogoutView.as_view(next_page="/"), name="logout"),
+    path("register/", views.register, name="register"),
 ]
-
