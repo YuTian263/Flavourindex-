@@ -35,16 +35,24 @@ def register(request):
 
 @login_required
 def add_recipe(request):
-    if request.method == "POST": 
+    if request.method == "POST":
         form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Recipe added successfully.")
-            return redirect("flavourindexApp:index")  # Redirect to home/index
+            recipe = form.save(commit=False)
+
+            if hasattr(recipe, "created_by"):
+                recipe.created_by = request.user
+
+            recipe.save()
+            messages.success(request, "Recipe published successfully!")
+            return redirect("flavourindexApp:index")
+        else:
+            print("FORM ERRORS:", form.errors)
+            messages.error(request, "Recipe could not be published. Please fix the errors below.")
     else:
         form = RecipeForm()
-    return render(request, "add_recipe.html", {"form": form})
 
+    return render(request, "add_recipe.html", {"form": form})
 
 def post_recipe(request):
     if request.method == "POST": 
@@ -60,7 +68,8 @@ def post_recipe(request):
 
 
 def index(request):
-    return render(request, "index.html")
+    recipes = Recipe.objects.all()
+    return render(request, "index.html", {"recipes": recipes})
 
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)

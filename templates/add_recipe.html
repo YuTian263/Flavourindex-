@@ -21,11 +21,8 @@
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
         <div>
             <label>Category</label>
-            <select name="category">
-                <option value="">— Select —</option>
-                <option>Breakfast</option><option>Lunch</option><option>Dinner</option>
-                <option>Dessert</option><option>Snack</option><option>Drinks</option><option>Other</option>
-            </select>
+            {{ form.foodCategory }}
+            {% for e in form.foodCategory.errors %}<p class="field-error">{{ e }}</p>{% endfor %}
         </div>
         <div>
             <label>Difficulty</label>
@@ -60,7 +57,7 @@
     {% for e in form.instructions.errors %}<p class="field-error">{{ e }}</p>{% endfor %}
 
     <label>Photo (optional)</label>
-    <input type="file" name="image" accept="image/*">
+    <input type="file" name="picture" accept="image/*">
 
     <div style="margin-top:20px; display:flex; gap:10px;">
         <button type="submit" class="btn btn-primary">Publish Recipe</button>
