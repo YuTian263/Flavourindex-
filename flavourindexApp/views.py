@@ -7,11 +7,17 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.urls import reverse
 
+from flavourindexApp.models import Recipe
+
 # Create your views here.
 
 def home(request):
     response = render(request, 'flavourindex/home.html')
     return response
+
+def view_recipes(request):
+    recipes_list = Recipe.objects.all().order_by('title')
+    
 
 def register(request): 
     if request.method == "POST":
@@ -82,3 +88,7 @@ def recipe_list_api(request):
 def user_logout(request):
     logout(request)
     return redirect(reverse('flavourindexApp:home'))
+
+#Temp so migrations can be made (Unaable to migrate without this as recently_viewed had a url path but no view)
+def recently_viewed(request):
+    return render(request, 'recently_viewed.html')
