@@ -12,11 +12,6 @@ from django.urls import reverse
 from flavourindexApp.models import Recipe
 
 # Create your views here.
-
-def home(request):
-    response = render(request, 'flavourindex/home.html')
-    return response
-
 def view_recipes(request):
     recipes_list = Recipe.objects.all().order_by('title')
     
@@ -27,7 +22,7 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Registration successful. You can now log in.")
-            return redirect("login")
+            return redirect("flavourindexApp:login")
     else:
         form = UserRegistrationForm()
     return render(request, "register.html", {"form": form})    
