@@ -12,17 +12,21 @@ class FoodCategory(models.Model):
 
 class Recipe(models.Model):
     title = models.CharField(max_length=40, unique = False)
-    description = models.CharField(max_length=200, unique = False)
-    foodCategory = models.ForeignKey(FoodCategory)
+    description = models.TextField(max_length=200, unique = False)
+    foodCategory = models.ForeignKey(FoodCategory, on_delete=models.CASCADE)
+    ingredients = models.TextField()
+    instructions = models.TextField()
     picture = models.ImageField(upload_to='recipes/')
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        if not self.slug:
+            self.slug = slugify(self.title)
         super(Recipe, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = 'recipes'
+        ordering = ['title']
 
     def __str__(self):
         return self.title

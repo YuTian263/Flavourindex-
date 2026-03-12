@@ -22,11 +22,32 @@ class UserRegistrationForm(UserCreationForm):
         return user
 
 class RecipeForm(forms.ModelForm):
-    title = forms.CharField(max_length=100)
+    title = forms.CharField(max_length=40)
     description = forms.CharField(widget=forms.Textarea)
     ingredients = forms.CharField(widget=forms.Textarea)
     instructions = forms.CharField(widget=forms.Textarea)
 
     class Meta:
         model = Recipe
-        fields = ("title", "description", "ingredients", "instructions")
+        fields = ("title", "description", "ingredients", "instructions", "foodCategory", "picture")
+        
+    def clean(self):
+        cleaned_data = super().clean()
+        title = cleaned_data.get('title')
+        description = cleaned_data.get('description')
+        ingredients = cleaned_data.get('ingredients')
+        instructions = cleaned_data.get('instructions')
+
+        if title and len(title.strip()) < 3:
+            self.add_error('title', 'Title must be at least 3 characters long.')
+
+        if description and len(description.strip()) < 10:
+            self.add_error('description', 'Description is too short.')
+
+        if ingredients is not None and not ingredients.strip():
+            self.add_error('ingredients', 'Ingredients cannot be empty.')
+
+        if instructions is not None and not instructions.strip():
+            self.add_error('instructions', 'Instructions cannot be empty.')
+
+        return cleaned_data

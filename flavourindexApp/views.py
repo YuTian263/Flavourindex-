@@ -46,3 +46,7 @@ def post_recipe(request):
 def user_logout(request):
     logout(request)
     return redirect(reverse('flavourindexApp:home'))
+
+#Temp so migrations can be made (Unaable to migrate without this as recently_viewed had a url path but no view)
+def recently_viewed(request):
+    return render(request, 'recently_viewed.html')
