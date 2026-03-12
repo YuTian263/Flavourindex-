@@ -2,6 +2,8 @@ from email import message
 from .models import Recipe
 from django.shortcuts import redirect, render
 from .forms import UserRegistrationForm, RecipeForm
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -28,20 +30,20 @@ def register(request):
             return redirect("login")
     else:
         form = UserRegistrationForm()
-    return render(request, "flavourindex/register.html", {"form": form})    
+    return render(request, "register.html", {"form": form})    
 
 
 @login_required
 def add_recipe(request):
     if request.method == "POST": 
-        form = RecipeForm(request.POST)
+        form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, "Recipe added successfully.")
             return redirect("flavourindexApp:index")  # Redirect to home/index
     else:
         form = RecipeForm()
-    return render(request, "flavourindex/add_recipe.html", {"form": form})
+    return render(request, "add_recipe.html", {"form": form})
 
 
 def post_recipe(request):
@@ -53,7 +55,7 @@ def post_recipe(request):
             return redirect("home")
     else:
         form = RecipeForm()
-    return render(request, "flavourindex/add_receipe.html", {"form": form})
+    return render(request, "add_receipe.html", {"form": form})
 
 
 
