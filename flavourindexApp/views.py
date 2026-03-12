@@ -1,7 +1,7 @@
 from email import message
 from .models import Recipe
 from django.shortcuts import redirect, render
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, RecipeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
