@@ -72,25 +72,6 @@ def recipe_detail(request, recipe_id):
     return render(request, "recipe_detail.html", {"recipe": recipe})
 
 
-def recipe_list_api(request):
-    recipes = Recipe.objects.all()
-
-    data = []
-    for recipe in recipes:
-        data.append({
-            "id": recipe.id,
-            "name": recipe.name,
-            "ingredients": recipe.ingredients,
-            "instructions": recipe.instructions,
-        })
-
-    return JsonResponse(data, safe=False)
-
-
-
-
-    return render(request, "flavourindex/post_receipe.html", {"form": form})
-
 @login_required
 def user_logout(request):
     logout(request)
