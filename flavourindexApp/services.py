@@ -37,6 +37,7 @@ def get_tasty_recipes(start=0, size=20):
                     tags.append(display_name)
 
             simplified_recipes.append({
+                'id' : None, 
                 "source": "external",
                 "title": recipe.get("name"),
                 "description": recipe.get("description"),

@@ -64,8 +64,7 @@ def post_recipe(request):
 
 
 def index(request):
-    recipes = Recipe.objects.all()
-    return render(request, "index.html", {"recipes": recipes})
+    return all_recipes(request)
 
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
@@ -123,6 +122,7 @@ def all_recipes(request):
     for recipe in local_recipes:
         combined.append({
             "source": "local",
+            "id": recipe.id,
             "title": recipe.title,
             "description": recipe.description,
             "cook_time_minutes": None,

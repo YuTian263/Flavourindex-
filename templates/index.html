@@ -29,8 +29,18 @@
         <span style="font-size:0.75rem; background:#eee; padding:2px 8px; border-radius:20px; color:#555;">{{ recipe.category }}</span>
         {% endif %}
         <div style="margin-top:14px; display:flex; justify-content:space-between; align-items:center;">
-            <small style="color:#aaa;">By {{ recipe.author.username }}</small>
-            <a href="{% url 'flavourindexApp:recipe_detail' recipe.id %}" class="btn btn-primary" style="padding:5px 12px; font-size:0.8rem;">View</a>
+            <small style="color:#aaa;">
+                {% if recipe.author %}
+                    By {{ recipe.author.username }}
+                {% else %}
+                    From Tasty
+                {% endif %}
+            </small>
+            {% if recipe.source == "local" %}
+                <a href="{% url 'flavourindexApp:recipe_detail' recipe.id %}" class="btn btn-primary" style="padding:5px 12px; font-size:0.8rem;">View</a>
+            {% else %}
+                <span style="font-size:0.8rem; color:#888;">External recipe</span>
+            {% endif %}
         </div>
     </div>
     {% endfor %}
