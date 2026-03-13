@@ -15,14 +15,27 @@
     </p>
     {% endif %}
 
-    <form method="POST">
+   <form method="post" id="login-form">
         {% csrf_token %}
+
         <label>Username</label>
         <input type="text" name="username" placeholder="your_username" required>
+
         <label>Password</label>
         <input type="password" name="password" placeholder="••••••••" required>
-        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:16px;">Login</button>
+
+        <button type="submit" id="login-button" class="btn btn-primary" style="width:100%; margin-top:16px;">
+            Login
+        </button>
     </form>
+
+    <script>
+    document.getElementById("login-form").addEventListener("submit", function () {
+        const btn = document.getElementById("login-button");
+        btn.disabled = true;
+        btn.textContent = "Logging in...";
+    });
+    </script>
 
     <p style="text-align:center; margin-top:14px; font-size:0.875rem; color:#888;">
         No account? <a href="{% url 'flavourindexApp:register' %}">Register here</a>
