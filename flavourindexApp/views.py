@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.urls import reverse
+from .services import get_tasty_recipes
 
 from flavourindexApp.models import Recipe
 
@@ -103,3 +104,41 @@ def user_logout(request):
 #Temp so migrations can be made (Unaable to migrate without this as recently_viewed had a url path but no view)
 def recently_viewed(request):
     return render(request, 'recently_viewed.html')
+
+#Internal API 
+def recipe_apis(request): 
+    recipe = Recipe.objects.all()
+    data = []
+    for r in recipe:
+        data.append({
+            "id": recipe.id,
+            "title": recipe.title,
+            "description": recipe.description,
+            "category": recipe.foodCategory.name if recipe.foodCategory else None,
+            "ingredients": recipe.ingredients,
+            "instructions": recipe.instructions,
+            "slug": recipe.slug,
+            "picture": recipe.picture.url if recipe.picture else None,
+        })
+    return JsonResponse(data, safe=False)
+
+def all_recipes(request): 
+    local_recipes = Recipe.objects.all()
+    combined = []
+    for recipe in local_recipes:
+        combined.append({
+            "source": "local",
+            "title": recipe.title,
+            "description": recipe.description,
+            "cook_time_minutes": None,
+            "ingredients": recipe.ingredients.splitlines() if recipe.ingredients else [],
+            "tags": [recipe.foodCategory.name] if recipe.foodCategory else [],
+            "picture": recipe.picture.url if recipe.picture else None,
+        })
+
+
+
+    external_recipes = get_tasty_recipes()
+    combined.extend(external_recipes)
+
+    return render(request, "index.html", {"recipes": combined})
