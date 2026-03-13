@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.urls import reverse
 from .services import get_tasty_recipes
+from django.db.models import Q
 
 from flavourindexApp.models import Recipe
 
@@ -116,24 +117,52 @@ def recipe_apis(request):
         })
     return JsonResponse(data, safe=False)
 
-def all_recipes(request): 
-    local_recipes = Recipe.objects.all()
+def all_recipes(request):
+    query = request.GET.get("query", "").strip()
+
     combined = []
+
+    # Local recipes
+    local_recipes = Recipe.objects.all()
+
+    if query:
+        local_recipes = local_recipes.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(foodCategory__name__icontains=query)
+        )
+
     for recipe in local_recipes:
         combined.append({
             "source": "local",
             "id": recipe.id,
             "title": recipe.title,
             "description": recipe.description,
-            "cook_time_minutes": None,
-            "ingredients": recipe.ingredients.splitlines() if recipe.ingredients else [],
-            "tags": [recipe.foodCategory.name] if recipe.foodCategory else [],
-            "picture": recipe.picture.url if recipe.picture else None,
+            "image": recipe.picture.url if recipe.picture else None,
+            "category": recipe.foodCategory.name if recipe.foodCategory else None,
+            "author": getattr(recipe, "author", None),
         })
 
-
-
+    # External recipes
     external_recipes = get_tasty_recipes()
-    combined.extend(external_recipes)
+
+    if query:
+        external_recipes = [
+            recipe for recipe in external_recipes
+            if query.lower() in (recipe.get("title") or "").lower()
+            or query.lower() in (recipe.get("description") or "").lower()
+            or any(query.lower() in tag.lower() for tag in recipe.get("tags", []))
+        ]
+
+    for recipe in external_recipes:
+        combined.append({
+            "source": "external",
+            "id": None,
+            "title": recipe.get("title"),
+            "description": recipe.get("description"),
+            "image": recipe.get("picture"),
+            "category": ", ".join(recipe.get("tags", [])[:2]) if recipe.get("tags") else None,
+            "author": None,
+        })
 
     return render(request, "index.html", {"recipes": combined})
