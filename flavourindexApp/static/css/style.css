@@ -1,0 +1,179 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+}
+
+/* NAV */
+nav {
+    background: #2c2c2c;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav a.logo {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+nav a.logo span {
+    color: #5ba3d9;
+}
+
+nav .nav-links a {
+    color: #ccc;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 0.9rem;
+}
+
+nav .nav-links a:hover {
+    color: #fff;
+}
+
+nav .nav-links span {
+    color: #aaa;
+    margin-left: 20px;
+    font-size: 0.9rem;
+}
+
+/* MAIN CONTENT */
+.content {
+    max-width: 960px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* MESSAGES */
+.messages {
+    margin-bottom: 20px;
+}
+
+.messages p {
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    margin-bottom: 8px;
+}
+
+.messages .success {
+    background: #d4edda;
+    color: #2d6a3f;
+}
+
+.messages .error {
+    background: #f8d7da;
+    color: #842029;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 24px;
+    color: #aaa;
+    font-size: 0.8rem;
+    margin-top: 40px;
+    border-top: 1px solid #ddd;
+}
+
+/* BUTTONS */
+.btn {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    font-family: Arial, sans-serif;
+}
+
+.btn-primary {
+    background: #5ba3d9;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: #4a8fc2;
+}
+
+.btn-secondary {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background: #ccc;
+}
+
+/* FORMS */
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-bottom: 4px;
+    margin-top: 14px;
+}
+
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=number],
+input[type=file],
+textarea,
+select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-family: Arial, sans-serif;
+    background: #fff;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #5ba3d9;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.field-error {
+    color: #c0392b;
+    font-size: 0.78rem;
+    margin-top: 3px;
+}
+
+.hint {
+    color: #888;
+    font-size: 0.78rem;
+    margin-top: 3px;
+}
+
+/* CARD */
+.card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 24px 0;
+}
