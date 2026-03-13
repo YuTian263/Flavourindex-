@@ -21,7 +21,7 @@
     {% for recipe in recipes %}
     <div class="card">
         {% if recipe.image %}
-        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="width:100%; height:150px; object-fit:cover; border-radius:4px; margin-bottom:12px;">
+        <img src="{{ recipe.image }}" alt="{{ recipe.title }}" style="width:100%; height:150px; object-fit:cover; border-radius:4px; margin-bottom:12px;">
         {% endif %}
         <h4 style="margin-bottom:6px;">{{ recipe.title }}</h4>
         <p style="font-size:0.85rem; color:#666; margin-bottom:10px;">{{ recipe.description|truncatewords:15 }}</p>

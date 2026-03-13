@@ -89,8 +89,10 @@
 
     <!-- Right column -->
     <div>
-        {% if recipe.image %}
-        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="width:100%; border-radius:6px; margin-bottom:16px;">
+        {% if recipe.picture %}
+            <img src="{{ recipe.picture.url }}" alt="{{ recipe.title }}" style="width:100%; border-radius:6px; margin-bottom:16px;">
+        {% elif recipe.image %}
+            <img src="{{ recipe.image }}" alt="{{ recipe.title }}" style="width:100%; border-radius:6px; margin-bottom:16px;">
         {% endif %}
 
         <div class="card" style="font-size:0.875rem;">
