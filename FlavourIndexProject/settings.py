@@ -135,6 +135,8 @@ STATICFILES_DIRS = [
 ]
 
 LOGIN_URL = "flavourindexApp:login"
+LOGIN_REDIRECT_URL = '/'
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / 'media'
 
