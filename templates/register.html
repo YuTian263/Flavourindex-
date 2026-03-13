@@ -9,14 +9,24 @@
     <h2 style="margin-bottom:6px;">Register</h2>
     <p style="color:#888; font-size:0.875rem; margin-bottom:16px;">Create a free account to share recipes.</p>
 
-    <form method="POST">
+    <form method="post">
         {% csrf_token %}
+
         <label>Username</label>
         <input type="text" name="username" value="{{ form.username.value|default:'' }}" placeholder="choose_a_username" required>
         {% for e in form.username.errors %}<p class="field-error">{{ e }}</p>{% endfor %}
 
-        <label>Email <span style="color:#aaa; font-weight:normal;">(optional)</span></label>
-        <input type="email" name="email" value="{{ form.email.value|default:'' }}" placeholder="you@email.com">
+        <label>Email</label>
+        <input type="email" name="email" value="{{ form.email.value|default:'' }}" placeholder="you@email.com" required>
+        {% for e in form.email.errors %}<p class="field-error">{{ e }}</p>{% endfor %}
+
+        <label>First Name</label>
+        <input type="text" name="first_name" value="{{ form.first_name.value|default:'' }}" placeholder="Your first name">
+        {% for e in form.first_name.errors %}<p class="field-error">{{ e }}</p>{% endfor %}
+
+        <label>Last Name</label>
+        <input type="text" name="last_name" value="{{ form.last_name.value|default:'' }}" placeholder="Your last name">
+        {% for e in form.last_name.errors %}<p class="field-error">{{ e }}</p>{% endfor %}
 
         <label>Password</label>
         <input type="password" name="password1" placeholder="Choose a password" required>
