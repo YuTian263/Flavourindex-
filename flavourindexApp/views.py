@@ -1,5 +1,4 @@
 from email import message
-from .models import Recipe
 from django.shortcuts import redirect, render
 from .forms import UserRegistrationForm, RecipeForm
 from django.http import JsonResponse
@@ -10,7 +9,6 @@ from django.contrib import messages
 from django.urls import reverse
 from .services import get_tasty_recipes
 from django.db.models import Q
-
 from flavourindexApp.models import Recipe
 
 # Create your views here.
@@ -61,8 +59,6 @@ def post_recipe(request):
     else:
         form = RecipeForm()
     return render(request, "add_receipe.html", {"form": form})
-
-
 
 def index(request):
     return all_recipes(request)
