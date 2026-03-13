@@ -81,6 +81,18 @@
         .btn-secondary { background: #e0e0e0; color: #333; }
         .btn-secondary:hover { background: #ccc; }
 
+        /* Logout Button */
+        .logout {
+            background: none;
+            border: none;
+            color: #ccc;
+            font: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+        .logout:hover {color: #fff}
+
         /* Forms */
         label {
             display: block;
@@ -127,7 +139,12 @@
         {% if user.is_authenticated %}
             <a href="{% url 'flavourindexApp:add_recipe' %}">Add Recipe</a>
             <span>Hi, {{ user.username }}!</span>
-            <a href="{% url 'flavourindexApp:logout' %}">Logout</a>
+
+            <form method="post" action="{% url 'flavourindexApp:logout' %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="logout">Logout</button>
+            </form>
+
         {% else %}
             <a href="{% url 'flavourindexApp:login' %}">Login</a>
             <a href="{% url 'flavourindexApp:register' %}">Register</a>

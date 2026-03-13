@@ -18,6 +18,10 @@ class Recipe(models.Model):
     ingredients = models.TextField()
     instructions = models.TextField()
     picture = models.ImageField(upload_to='recipes/')
+    prep_time = models.IntegerField(null=True)
+    cook_time = models.IntegerField(null=True)
+    servings = models.IntegerField(null=True)
+    difficulty = models.IntegerField(null=True)
     slug = models.SlugField(unique=True, blank=True)
 
     def save(self, *args, **kwargs):
