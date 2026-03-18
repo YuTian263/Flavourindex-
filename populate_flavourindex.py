@@ -1,6 +1,6 @@
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
-                      'tango_with_django_project.settings')
+                      'FlavourIndexProject.settings')
 
 import django
 django.setup()
@@ -50,7 +50,7 @@ def populate():
     }
 
     for cat_name, recipes in cats.items():
-        cat = add_category(cat_name)
+        cat = add_foodCategory(cat_name)
         for r in recipes:
             add_recipe(cat, r['title'], r['description'], r['ingredients'], r['instructions'])
 
