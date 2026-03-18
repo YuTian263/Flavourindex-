@@ -71,7 +71,7 @@ def recipe_detail(request, recipe_id):
 @login_required
 def user_logout(request):
     logout(request)
-    return redirect(reverse('flavourindexApp:home'))
+    return redirect(reverse('flavourindexApp:index'))
 
 #Temp so migrations can be made (Unaable to migrate without this as recently_viewed had a url path but no view)
 def recently_viewed(request):

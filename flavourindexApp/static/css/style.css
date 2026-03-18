@@ -116,6 +116,26 @@ footer {
     background: #ccc;
 }
 
+/* Logout Button */
+.logout {
+    appearance: none !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: none;
+    border: none;
+    color: #ccc;
+    font: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-left: 20px;
+    padding: 0;
+    display: inline;
+    text-decoration: none;
+    vertical-align: baseline;
+    line-height: 1;
+    }
+    .logout:hover {color: #fff}
+
 /* FORMS */
 label {
     display: block;
