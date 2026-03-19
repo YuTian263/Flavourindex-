@@ -13,7 +13,6 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 FAILURE_HEADER = f"{os.linesep}{os.linesep}{os.linesep}================{os.linesep}TwD TEST FAILURE =({os.linesep}================{os.linesep}"
 FAILURE_FOOTER = f"{os.linesep}"
 
-# Create your tests here.
 
 class Population_Script_Tests(TestCase):
     
