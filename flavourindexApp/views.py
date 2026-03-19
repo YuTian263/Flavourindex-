@@ -58,7 +58,7 @@ def post_recipe(request):
             return redirect("home")
     else:
         form = RecipeForm()
-    return render(request, "add_receipe.html", {"form": form})
+    return render(request, "add_recipe.html", {"form": form})
 
 def index(request):
     return all_recipes(request)
