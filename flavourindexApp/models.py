@@ -23,6 +23,7 @@ class Recipe(models.Model):
     servings = models.IntegerField(null=True, blank=True)
     difficulty = models.IntegerField(null=True, blank=True)
     slug = models.SlugField(unique=True, blank=True)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='recipes')
 
     def save(self, *args, **kwargs):
         if not self.slug:
