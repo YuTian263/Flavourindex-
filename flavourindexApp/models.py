@@ -17,7 +17,7 @@ class Recipe(models.Model):
     foodCategory = models.ForeignKey(FoodCategory, on_delete=models.CASCADE)
     ingredients = models.TextField()
     instructions = models.TextField()
-    picture = models.ImageField(upload_to='recipes/')
+    picture = models.ImageField(upload_to='recipes/', blank=True, null=True)
     prep_time = models.IntegerField(null=True, blank=True)
     cook_time = models.IntegerField(null=True, blank=True)
     servings = models.IntegerField(null=True, blank=True)
