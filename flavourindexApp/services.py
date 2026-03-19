@@ -2,7 +2,7 @@ import os
 import requests
 
 
-def get_tasty_recipes(start=0, size=20):
+def get_tasty_recipes(start=0, size=40):
     url = "https://tasty.p.rapidapi.com/recipes/list"
 
     headers = {
