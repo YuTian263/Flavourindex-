@@ -37,6 +37,10 @@ class RecipeForm(forms.ModelForm):
         description = cleaned_data.get('description')
         ingredients = cleaned_data.get('ingredients')
         instructions = cleaned_data.get('instructions')
+        prep_time = cleaned_data.get('prep_time')
+        cook_time = cleaned_data.get('cook_time')
+        servings = cleaned_data.get('servings')
+        difficulty = cleaned_data.get('difficulty')
 
         if title and len(title.strip()) < 3:
             self.add_error('title', 'Title must be at least 3 characters long.')
