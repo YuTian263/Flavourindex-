@@ -29,7 +29,7 @@ class RecipeForm(forms.ModelForm):
 
     class Meta:
         model = Recipe
-        fields = ("title", "description", "ingredients", "instructions", "foodCategory", "picture")
+        fields = ("title", "description", "ingredients", "instructions", "foodCategory", "picture", "prep_time", "cook_time", "servings", "difficulty")
         
     def clean(self):
         cleaned_data = super().clean()
