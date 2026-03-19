@@ -9,6 +9,11 @@ class FoodCategoryAdmin(admin.ModelAdmin):
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ('title', 'foodCategory', 'slug')
     prepopulated_fields = {'slug': ('title',)}
+    
+    def save_model(self, request, obj, form, change):
+        if not obj.pk and not obj.created_by:
+            obj.created_by = request.user
+        super().save_model(request, obj, form, change)
 
 
 admin.site.register(FoodCategory, FoodCategoryAdmin)
