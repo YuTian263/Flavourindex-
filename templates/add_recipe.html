@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Add Recipe{% endblock %}
 
+{% block template_css %}
+<link rel="stylesheet" href="{% static 'css/add_recipe.css' %}">
+{% endblock %}
+
 {% block body_block %}
 
-<h2 style="margin-bottom:6px;">Add a Recipe</h2>
-<p style="color:#888; margin-bottom:20px;">Share something tasty with the community!</p>
+<h2 class="title">Add a Recipe</h2>
+<p class="subtitle">Share something tasty with the community!</p>
 
-<div class="card" style="max-width:640px;">
+<div class="card add-recipe-card">
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
 
@@ -18,7 +23,7 @@
     <label>Description *</label>
     <textarea name="description" rows="3" placeholder="What makes this recipe special?" required>{{ form.description.value|default:'' }}</textarea>
 
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+    <div class="dropdown">
         <div>
             <label>Category</label>
             {{ form.foodCategory }}
@@ -33,7 +38,7 @@
         </div>
     </div>
 
-    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+    <div class="timescale">
         <div>
             <label>Prep Time (mins)</label>
             <input type="number" name="prep_time" min="0" placeholder="15" value="{{ form.prep_time.value|default:'' }}">
@@ -59,7 +64,7 @@
     <label>Photo</label>
     <input type="file" name="picture" accept="image/*">
 
-    <div style="margin-top:20px; display:flex; gap:10px;">
+    <div class="bottombuttons">
         <button type="submit" class="btn btn-primary">Publish Recipe</button>
         <a href="{% url 'flavourindexApp:index' %}" class="btn btn-secondary">Cancel</a>
     </div>

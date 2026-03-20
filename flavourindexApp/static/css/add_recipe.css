@@ -1,0 +1,30 @@
+.title {
+    margin-bottom: 6px;
+}
+
+.subtitle{
+    color:#888; 
+    margin-bottom:20px;
+}
+
+.add-recipe-card{
+    max-width:640px;
+}
+
+.dropdown{
+    display:grid; 
+    grid-template-columns:1fr 1fr; 
+    gap:12px;
+}
+
+.timescale{
+    display:grid; 
+    grid-template-columns:1fr 1fr 1fr; 
+    gap:12px;
+}
+
+.bottombuttons{
+    margin-top:20px; 
+    display:flex; 
+    gap:10px;
+}

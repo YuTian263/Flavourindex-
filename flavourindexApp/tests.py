@@ -20,6 +20,7 @@ class Population_Script_Tests(TestCase):
         populate()
 
     def test_population_script_creates_recipes_and_categories(self):
+        populate()
         self.assertTrue(Recipe.objects.count() > 0, f"{FAILURE_HEADER}Population script does not create recipes{FAILURE_FOOTER}")
         self.assertTrue(FoodCategory.objects.count() > 0, f"{FAILURE_HEADER}Population script does not create categories{FAILURE_FOOTER}")
 
@@ -92,12 +93,13 @@ class ViewsTests(TestCase):
 class Model_Tests(TestCase):
      
     def test_food_category_creation(self):
-        category = FoodCategory.objects.create(name="Dinner")
+
+        category,_ = FoodCategory.objects.get_or_create(name="Dinner")
         self.assertEqual(category.name, "Dinner", f"{FAILURE_HEADER}Food category could not be succesfully created{FAILURE_FOOTER}")
 
     def test_recipe_creation(self):
-        category = FoodCategory.objects.create(name="Dinner")
-        recipe = Recipe.objects.create(title="Pizza", description="Tasty pizza", foodCategory=category, ingredients="dough, cheese, sauce", instructions="Cook for 12 mins")
+        category,_ = FoodCategory.objects.get_or_create(name="Dinner")
+        recipe,_ = Recipe.objects.get_or_create(title="Pizza", description="Tasty pizza", foodCategory=category, ingredients="dough, cheese, sauce", instructions="Cook for 12 mins")
         self.assertEqual(recipe.title, "Pizza", f"{FAILURE_HEADER}Recipe could not be succesfully created{FAILURE_FOOTER}")
         self.assertEqual(recipe.description, "Tasty pizza", f"{FAILURE_HEADER}Recipe could not be succesfully created{FAILURE_FOOTER}")
         self.assertEqual(recipe.foodCategory, category, f"{FAILURE_HEADER}Recipe could not be succesfully created{FAILURE_FOOTER}")
@@ -105,17 +107,17 @@ class Model_Tests(TestCase):
         self.assertEqual(recipe.instructions, "Cook for 12 mins", f"{FAILURE_HEADER}Recipe could not be succesfully created{FAILURE_FOOTER}")
 
     def test_food_category_str(self):
-        category = FoodCategory.objects.create(name="Dinner")
+        category,_ = FoodCategory.objects.get_or_create(name="Dinner")
         self.assertEqual("Dinner", str(category), f"{FAILURE_HEADER}Category __str__ method doesn't work")
 
     def test_recipe_category_str(self):
-        category = FoodCategory.objects.create(name="Dinner")
-        recipe = Recipe.objects.create(title="Pizza", description="Tasty pizza", foodCategory=category, ingredients="dough, cheese, sauce", instructions="Cook for 12 mins")
+        category,_ = FoodCategory.objects.get_or_create(name="Dinner")
+        recipe,_ = Recipe.objects.get_or_create(title="Pizza", description="Tasty pizza", foodCategory=category, ingredients="dough, cheese, sauce", instructions="Cook for 12 mins")
         self.assertEqual("Pizza", str(recipe), f"{FAILURE_HEADER}Recipe __str__ method doesn't work")
 
     def test_recipe_slug(self):
-        category = FoodCategory.objects.create(name="Dinner")
-        recipe = Recipe.objects.create(title="Margarita Pizza", description="Tasty pizza", foodCategory=category, ingredients="dough, cheese, sauce", instructions="Cook for 12 mins")
+        category,_ = FoodCategory.objects.get_or_create(name="Dinner")
+        recipe,_ = Recipe.objects.get_or_create(title="Margarita Pizza", description="Tasty pizza", foodCategory=category, ingredients="dough, cheese, sauce", instructions="Cook for 12 mins")
         self.assertEqual("margarita-pizza", recipe.slug, f"{FAILURE_HEADER}Recipe slug not working correctly{FAILURE_FOOTER}")
 
 
