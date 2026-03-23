@@ -34,13 +34,7 @@
         </button>
     </form>
 
-    <script>
-    document.getElementById("login-form").addEventListener("submit", function () {
-        const btn = document.getElementById("login-button");
-        btn.disabled = true;
-        btn.textContent = "Logging in...";
-    });
-    </script>
+    <script src="{% static 'javascript/login.js' %}"> </script>
 
     <p class="registerLink">
         No account? <a href="{% url 'flavourindexApp:register' %}">Register here</a>
