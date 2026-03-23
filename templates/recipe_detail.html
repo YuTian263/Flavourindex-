@@ -18,7 +18,7 @@
         <h2 class="recipeTitle">{{ recipe.title }}</h2>
         <p class="welcomeBack">
             By {{ recipe.author.username }}
-            {% if recipe.category %} &middot; {{ recipe.category }}{% endif %}
+            {% if recipe.foodCategory %} &middot; {{ recipe.foodCategory }}{% endif %}
             {% if recipe.difficulty %} &middot; {{ recipe.difficulty }}{% endif %}
         </p>
 
@@ -51,7 +51,7 @@
         <h4 class="reviewsTitle">Reviews</h4>
 
         {% if user.is_authenticated %}
-        <div class="card" class="margin20">
+        <div class="card margin20">
             <form method="POST" action="#">
                 {% csrf_token %}
                 <label>Your Rating</label>
@@ -74,7 +74,7 @@
 
         {% if reviews %}
             {% for review in reviews %}
-            <div class="card" class="margin10">
+            <div class="card margin10">
                 <div class="reviewBox">
                     <strong class="font0point9">{{ review.author.username }}</strong>
                     <small class="colourAAA">{{ review.created_at|date:"M j, Y" }}</small>
@@ -100,7 +100,7 @@
             <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="recipeViewPicture">
         {% endif %}
 
-        <div class="card" class="font0875">
+        <div class="card font0875">
             {% if recipe.prep_time %}
             <div class="rightColumnInfo">
                 <span class="colour888">Prep time</span><span>{{ recipe.prep_time }} min</span>
@@ -113,7 +113,7 @@
             {% endif %}
             {% if recipe.servings %}
             <div class="rightColumnInfo">
-                <span class="color:#888;">Servings</span><span>{{ recipe.servings }}</span>
+                <span class="colour888">Servings</span><span>{{ recipe.servings }}</span>
             </div>
             {% endif %}
             {% if recipe.difficulty %}
