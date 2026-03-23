@@ -1,37 +1,42 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}{{ recipe.title }}{% endblock %}
 
+{% block template_css %}
+<link rel="stylesheet" href="{% static 'css/recipe_detail.css' %}">
+{% endblock %}
+
 {% block body_block %}
 
-<a href="{% url 'flavourindexApp:index' %}" class="btn btn-secondary" style="margin-bottom:20px;">← Back</a>
+<a href="{% url 'flavourindexApp:index' %}" class="btn btn-secondary messages">← Back</a>
 
-<div style="display:grid; grid-template-columns: 1fr 260px; gap:30px; align-items:start;">
+<div class="columns">
 
     <!-- Left column -->
     <div>
-        <h2 style="margin-bottom:8px;">{{ recipe.title }}</h2>
-        <p style="color:#888; font-size:0.85rem; margin-bottom:16px;">
+        <h2 class="recipeTitle">{{ recipe.title }}</h2>
+        <p class="welcomeBack">
             By {{ recipe.author.username }}
             {% if recipe.category %} &middot; {{ recipe.category }}{% endif %}
             {% if recipe.difficulty %} &middot; {{ recipe.difficulty }}{% endif %}
         </p>
 
-        <p style="margin-bottom:20px;">{{ recipe.description }}</p>
+        <p class="margin20">{{ recipe.description }}</p>
 
         <hr>
 
-        <h4 style="margin-bottom:10px;">Ingredients</h4>
-        <ul style="padding-left:20px; margin-bottom:20px;">
+        <h4 class="margin10">Ingredients</h4>
+        <ul class="recipeComponentsList">
             {% for line in recipe.ingredients.splitlines %}
-            {% if line.strip %}<li style="margin-bottom:4px; font-size:0.9rem;">{{ line }}</li>{% endif %}
+            {% if line.strip %}<li class="recipeComponentsText">{{ line }}</li>{% endif %}
             {% endfor %}
         </ul>
 
-        <h4 style="margin-bottom:10px;">Instructions</h4>
-        <ol style="padding-left:20px; margin-bottom:20px;">
+        <h4 class="recipeComponentTitle">Instructions</h4>
+        <ol class="recipeComponentsList">
             {% for step in recipe.instructions.splitlines %}
-            {% if step.strip %}<li style="margin-bottom:8px; font-size:0.9rem;">{{ step }}</li>{% endif %}
+            {% if step.strip %}<li class="recipeComponentsText">{{ step }}</li>{% endif %}
             {% endfor %}
         </ol>
 
@@ -43,14 +48,14 @@
 
         <hr>
 
-        <h4 style="margin-bottom:16px;">Reviews</h4>
+        <h4 class="reviewsTitle">Reviews</h4>
 
         {% if user.is_authenticated %}
-        <div class="card" style="margin-bottom:20px;">
+        <div class="card" class="margin20">
             <form method="POST" action="#">
                 {% csrf_token %}
                 <label>Your Rating</label>
-                <div id="stars" style="display:flex; gap:6px; font-size:1.8rem; margin-bottom:12px; cursor:pointer;">
+                <div id="stars" class="stars">
                     <span class="star" data-val="1" style="color:#ccc;">★</span>
                     <span class="star" data-val="2" style="color:#ccc;">★</span>
                     <span class="star" data-val="3" style="color:#ccc;">★</span>
@@ -60,60 +65,60 @@
                 <input type="hidden" name="rating" id="rating-input" value="">
                 <label>Comment (optional)</label>
                 <textarea name="comment" rows="3" placeholder="What did you think?"></textarea>
-                <button type="submit" class="btn btn-primary" style="margin-top:12px;">Post Review</button>
+                <button type="submit" class="btn btn-primary submitButton">Post Review</button>
             </form>
         </div>
         {% else %}
-        <p style="color:#888; font-size:0.875rem; margin-bottom:20px;"><a href="{% url 'flavourindexApp:login' %}">Login</a> to leave a review.</p>
+        <p class="welcomeBack"><a href="{% url 'flavourindexApp:login' %}">Login</a> to leave a review.</p>
         {% endif %}
 
         {% if reviews %}
             {% for review in reviews %}
-            <div class="card" style="margin-bottom:10px;">
-                <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
-                    <strong style="font-size:0.9rem;">{{ review.author.username }}</strong>
-                    <small style="color:#aaa;">{{ review.created_at|date:"M j, Y" }}</small>
+            <div class="card" class="margin10">
+                <div class="reviewBox">
+                    <strong class="font0point9">{{ review.author.username }}</strong>
+                    <small class="colourAAA">{{ review.created_at|date:"M j, Y" }}</small>
                 </div>
-                <div style="color:#f5a623; margin-bottom:4px;">
+                <div class="starsRating">
                     {% for i in "12345" %}{% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}{% endfor %}
                 </div>
                 {% if review.comment %}
-                <p style="font-size:0.875rem; color:#555;">{{ review.comment }}</p>
+                <p class="reviewCommentText">{{ review.comment }}</p>
                 {% endif %}
             </div>
             {% endfor %}
         {% else %}
-        <p style="color:#aaa; font-size:0.875rem;">No reviews yet.</p>
+        <p class="noRev">No reviews yet.</p>
         {% endif %}
     </div>
 
     <!-- Right column -->
     <div>
         {% if recipe.picture %}
-            <img src="{{ recipe.picture.url }}" alt="{{ recipe.title }}" style="width:100%; border-radius:6px; margin-bottom:16px;">
+            <img src="{{ recipe.picture.url }}" alt="{{ recipe.title }}" class="recipeViewPicture">
         {% elif recipe.image %}
-            <img src="{{ recipe.image }}" alt="{{ recipe.title }}" style="width:100%; border-radius:6px; margin-bottom:16px;">
+            <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="recipeViewPicture">
         {% endif %}
 
-        <div class="card" style="font-size:0.875rem;">
+        <div class="card" class="font0875">
             {% if recipe.prep_time %}
-            <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #f0f0f0;">
-                <span style="color:#888;">Prep time</span><span>{{ recipe.prep_time }} min</span>
+            <div class="rightColumnInfo">
+                <span class="colour888">Prep time</span><span>{{ recipe.prep_time }} min</span>
             </div>
             {% endif %}
             {% if recipe.cook_time %}
-            <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #f0f0f0;">
-                <span style="color:#888;">Cook time</span><span>{{ recipe.cook_time }} min</span>
+            <div class="rightColumnInfo">
+                <span class="colour888">Cook time</span><span>{{ recipe.cook_time }} min</span>
             </div>
             {% endif %}
             {% if recipe.servings %}
-            <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #f0f0f0;">
-                <span style="color:#888;">Servings</span><span>{{ recipe.servings }}</span>
+            <div class="rightColumnInfo">
+                <span class="color:#888;">Servings</span><span>{{ recipe.servings }}</span>
             </div>
             {% endif %}
             {% if recipe.difficulty %}
-            <div style="display:flex; justify-content:space-between; padding:6px 0;">
-                <span style="color:#888;">Difficulty</span><span>{{ recipe.difficulty }}</span>
+            <div class="difficulty">
+                <span class="colour888">Difficulty</span><span>{{ recipe.difficulty }}</span>
             </div>
             {% endif %}
         </div>

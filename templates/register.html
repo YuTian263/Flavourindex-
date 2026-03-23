@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Register{% endblock %}
 
+{% block template_css %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock %}
+
 {% block body_block %}
 
-<div style="max-width:360px; margin:0 auto;">
+<div class="registerBox">
 <div class="card">
-    <h2 style="margin-bottom:6px;">Register</h2>
-    <p style="color:#888; font-size:0.875rem; margin-bottom:16px;">Create a free account to share recipes.</p>
+    <h2 class="margin6">Register</h2>
+    <p class="welcomeBack">Create a free account to share recipes.</p>
 
     <form method="post">
         {% csrf_token %}
@@ -36,10 +41,10 @@
         <input type="password" name="password2" placeholder="Repeat your password" required>
         {% for e in form.password2.errors %}<p class="field-error">{{ e }}</p>{% endfor %}
 
-        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:16px;">Create Account</button>
+        <button type="submit" class="btn btn-primary createAccount">Create Account</button>
     </form>
 
-    <p style="text-align:center; margin-top:14px; font-size:0.875rem; color:#888;">
+    <p class="alreadyHave">
         Already have an account? <a href="{% url 'flavourindexApp:login' %}">Login here</a>
     </p>
 </div>

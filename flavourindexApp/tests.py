@@ -20,7 +20,6 @@ class Population_Script_Tests(TestCase):
         populate()
 
     def test_population_script_creates_recipes_and_categories(self):
-        populate()
         self.assertTrue(Recipe.objects.count() > 0, f"{FAILURE_HEADER}Population script does not create recipes{FAILURE_FOOTER}")
         self.assertTrue(FoodCategory.objects.count() > 0, f"{FAILURE_HEADER}Population script does not create categories{FAILURE_FOOTER}")
 
