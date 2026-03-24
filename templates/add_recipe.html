@@ -17,11 +17,11 @@
     {% csrf_token %}
 
     <label>Recipe Title *</label>
-    <input type="text" name="title" value="{{ form.title.value|default:'' }}" placeholder="e.g. Banana Bread" required>
+    <input type="text" name="title" value="{{ form.title.value|default:'' }}" placeholder="e.g. Banana Bread (Min 3 characters)" required>
     {% for e in form.title.errors %}<p class="field-error">{{ e }}</p>{% endfor %}
 
     <label>Description *</label>
-    <textarea name="description" rows="3" placeholder="What makes this recipe special?" required>{{ form.description.value|default:'' }}</textarea>
+    <textarea name="description" rows="3" placeholder="What makes this recipe special? (Min 10 characters)" required>{{ form.description.value|default:'' }}</textarea>
 
     <div class="dropdown">
         <div>
@@ -33,7 +33,7 @@
             <label>Difficulty</label>
             <select name="difficulty">
                 <option value="">— Select —</option>
-                <option>Easy</option><option>Medium</option><option>Hard</option>
+                <option value="1">Easy</option><option value="2">Medium</option><option value="3">Hard</option>
             </select>
         </div>
     </div>

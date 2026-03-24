@@ -90,9 +90,8 @@ class ViewsTests(TestCase):
 
 
 class Model_Tests(TestCase):
-     
+      
     def test_food_category_creation(self):
-
         category,_ = FoodCategory.objects.get_or_create(name="Dinner")
         self.assertEqual(category.name, "Dinner", f"{FAILURE_HEADER}Food category could not be succesfully created{FAILURE_FOOTER}")
 

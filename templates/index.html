@@ -33,6 +33,9 @@
         {% if recipe.category %}
         <span class="indexRecipeCat">{{ recipe.category }}</span>
         {% endif %}
+        {% if recipe.difficulty %}
+        <span class="indexRecipeCat">{{ recipe.difficulty }}</span>
+        {% endif %}
         <div class ="indexRecipeAuthor">
             <small class="indexRecipeAuthorText">
                 {% if recipe.author %}

@@ -25,7 +25,7 @@
         </svg>Flavour<span>Index</span>
     </a>
     <div class="nav-links">
-        <a href="{% url 'flavourindexApp:index' %}">Recipes</a>
+        <a href="{% url 'flavourindexApp:index' %}">All Recipes</a>
         {% if user.is_authenticated %}
             <a href="{% url 'flavourindexApp:add_recipe' %}">Add Recipe</a>
             <span>Hi, {{ user.username }}!</span>
