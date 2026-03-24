@@ -50,7 +50,7 @@
         <h4 class="reviewsTitle">Reviews</h4>
 
         {% if user.is_authenticated %}
-        <div class="card" class="margin20">
+        <div class="card margin20">
             <form method="POST" action="{% url 'flavourindexApp:add_review' recipe.id %}">
                 {% csrf_token %}
                 <label>Your Rating</label>
@@ -73,7 +73,7 @@
 
         {% if reviews %}
             {% for review in reviews %}
-            <div class="card" class="margin10">
+            <div class="card margin10">
                 <div class="reviewBox">
                     <strong class="font0point9">{{ review.created_by.username }}</strong>
                 </div>
@@ -98,7 +98,7 @@
             <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="recipeViewPicture">
         {% endif %}
 
-        <div class="card" class="font0875">
+        <div class="card font0875">
             <div class="rightColumnInfo">
                 <span class="colour888">Prep time</span>
                 {% if recipe.prep_time %}
