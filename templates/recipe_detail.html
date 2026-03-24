@@ -17,7 +17,7 @@
     <div>
         <h2 class="recipeTitle">{{ recipe.title }}</h2>
         <p class="welcomeBack">
-            By {{ recipe.created_by.username }}
+            By {% if recipe.created_by %} {{ recipe.created_by.username }} {% else %} FlavourIndex {% endif %}
             {% if recipe.foodCategory %} &middot; {{ recipe.foodCategory }}{% endif %}
         </p>
 
