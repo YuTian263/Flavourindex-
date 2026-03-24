@@ -43,11 +43,19 @@ def populate():
             'ingredients': 'bun, burger patty, tomato, lettuce, cheese',
             'instructions': 'Cook burger patty, assemble burger' } ]
     
+    dessert_recipes = [
+        {
+            'title': 'Sticky Toffee Pudding',
+            'description': 'Lovely sticky toffee pudding, perfect dessert',
+            'ingredients': 'butter, sugar, eggs, flour, treacle, milk',
+            'instructions': 'Combine butter, sugar, eggs, flour, add milk, melt butter in pan and add sugar and treacle for sauce, bake pudding in oven, cover with sauce'
+        } ]
+    
     cats = {
         'Breakfast': breakfast_recipes,
         'Lunch': lunch_recipes,
         'Dinner': dinner_recipes,
-        'Dessert': None
+        'Dessert': dessert_recipes
     }
 
     for cat_name, recipes in cats.items():
