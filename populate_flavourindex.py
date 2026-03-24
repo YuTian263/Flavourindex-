@@ -48,14 +48,29 @@ def populate():
             'title': 'Sticky Toffee Pudding',
             'description': 'Lovely sticky toffee pudding, perfect dessert',
             'ingredients': 'butter, sugar, eggs, flour, treacle, milk',
-            'instructions': 'Combine butter, sugar, eggs, flour, add milk, melt butter in pan and add sugar and treacle for sauce, bake pudding in oven, cover with sauce'
-        } ]
+            'instructions': 'Combine butter, sugar, eggs, flour, add milk, melt butter in pan and add sugar and treacle for sauce, bake pudding in oven, cover with sauce' } ]
     
+    snack_recipes = [
+        {
+            'title': 'Sliders',
+            'description': 'Mini burgers, great as a snack between meals or when hosting',
+            'ingredients': 'mini burger buns\nmini burgers\nlettuce\ntomato\nonion\cheese',
+            'instructions': 'Cook mini burgers in pan/oven, place cheese on a minute before cooked, toast buns, assemble'} ]
+    
+    drink_recipes = [
+        {
+            'title': 'Mojito',
+            'description': 'Amazing cocktail, great for drinks with friends!!!',
+            'ingredients': 'mint leaves\nlime juice\nrum\nsoda water\nice\nsugar',
+            'instructions': 'muddle mint, lime juice and sugar\nadd rum\nadd ice and stir until sugar dissolved\ntop with soda water\ngarnish with mint leaves'}  ]
+
     cats = {
         'Breakfast': breakfast_recipes,
         'Lunch': lunch_recipes,
         'Dinner': dinner_recipes,
-        'Dessert': dessert_recipes
+        'Dessert': dessert_recipes,
+        'Snack': snack_recipes,
+        'Drink': drink_recipes
     }
 
     for cat_name, recipes in cats.items():

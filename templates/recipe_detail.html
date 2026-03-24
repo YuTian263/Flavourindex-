@@ -39,7 +39,7 @@
             {% endfor %}
         </ol>
 
-        {% if user == recipe.author or user.is_staff %}
+        {% if user == recipe.created_by or user.is_staff %}
         <hr>
         {# <a href="{% url 'edit_recipe' recipe.id %}" class="btn btn-secondary">Edit</a> #}
         {# <a href="{% url 'delete_recipe' recipe.id %}" class="btn btn-secondary">Delete</a> #}
