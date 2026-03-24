@@ -38,11 +38,7 @@
         {% endif %}
         <div class ="indexRecipeAuthor">
             <small class="indexRecipeAuthorText">
-                {% if recipe.author %}
-                    By {{ recipe.author.username }}
-                {% else %}
-                    By FlavourIndex
-                {% endif %}
+                By {{ recipe.author.username|default:"FlavourIndex" }}
             </small>
             {% if recipe.source == "local" %}
                 <a href="{% url 'flavourindexApp:recipe_detail' recipe.id %}" class="btn btn-primary viewRecipeButton">View</a>
