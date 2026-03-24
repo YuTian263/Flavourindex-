@@ -46,7 +46,8 @@ def populate():
     cats = {
         'Breakfast': breakfast_recipes,
         'Lunch': lunch_recipes,
-        'Dinner': dinner_recipes
+        'Dinner': dinner_recipes,
+        'Dessert': None
     }
 
     for cat_name, recipes in cats.items():
