@@ -1,0 +1,37 @@
+[
+{
+  "model": "flavourindexApp.foodcategory",
+  "pk": 1,
+  "fields": {
+    "name": "breakfast"
+  }
+},
+{
+  "model": "flavourindexApp.foodcategory",
+  "pk": 2,
+  "fields": {
+    "name": "lunch"
+  }
+},
+{
+  "model": "flavourindexApp.foodcategory",
+  "pk": 3,
+  "fields": {
+    "name": "dinner"
+  }
+},
+{
+  "model": "flavourindexApp.foodcategory",
+  "pk": 4,
+  "fields": {
+    "name": "dessert"
+  }
+},
+{
+  "model": "flavourindexApp.foodcategory",
+  "pk": 5,
+  "fields": {
+    "name": "snack"
+  }
+}
+]
