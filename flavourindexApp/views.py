@@ -11,11 +11,7 @@ from .services import get_tasty_recipes
 from django.db.models import Q
 from flavourindexApp.models import Recipe, Review
 
-# Create your views here.
-def view_recipes(request):
-    recipes_list = Recipe.objects.all().order_by('title')
-    
-
+# Create your views here.   
 def register(request): 
     if request.method == "POST":
         form  = UserRegistrationForm(request.POST)
@@ -137,7 +133,8 @@ def all_recipes(request):
         filters = (
             Q(title__icontains=query) |
             Q(description__icontains=query) |
-            Q(foodCategory__name__icontains=query)
+            Q(foodCategory__name__icontains=query) |
+            Q(created_by__username__icontains=query)
         )
         if difficulty_number:
             filters |= Q(difficulty=difficulty_number)
