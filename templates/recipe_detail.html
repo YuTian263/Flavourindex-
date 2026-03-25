@@ -49,7 +49,7 @@
 
         <h4 class="reviewsTitle">Reviews</h4>
 
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated and user != recipe.created_by %}
         <div class="card margin20">
             <form method="POST" action="{% url 'flavourindexApp:add_review' recipe.id %}">
                 {% csrf_token %}
@@ -67,6 +67,8 @@
                 <button type="submit" class="btn btn-primary submitButton">Post Review</button>
             </form>
         </div>
+        {% elif user == recipe.created_by %}
+        <p class = "welcomeBack">Cannot leave a review on your own recipe</p>
         {% else %}
         <p class="welcomeBack"><a href="{% url 'flavourindexApp:login' %}">Login</a> to leave a review.</p>
         {% endif %}
