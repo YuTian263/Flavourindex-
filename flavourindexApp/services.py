@@ -3,11 +3,11 @@ import requests
 
 
 def get_tasty_recipes(start=0, size=40):
-    url = "https://tasty.p.rapidapi.com/recipes/list"
+    url = 'https://tasty.p.rapidapi.com/recipes/list' 
 
     headers = {
-        "x-rapidapi-host": "tasty.p.rapidapi.com",
-        "x-rapidapi-key": 'a490d86802msh0e3e9fe90f77617p17fae2jsn6ecc61a732df'
+        "x-rapidapi-host":  'tasty.p.rapidapi.com', 
+        "x-rapidapi-key": '803b2013c4mshd1f820d4b30b4f7p1eff1ajsn72c78c113cee'
     }
 
     params = {
