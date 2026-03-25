@@ -1,0 +1,84 @@
+.columns {
+    display:grid; 
+    grid-template-columns: 1fr 260px; 
+    gap:30px; 
+    align-items:start;
+}
+
+.recipeTitle {
+    margin-bottom:8px;
+}
+
+.margin20 {
+    margin-bottom:20px;
+}
+
+.margin10 {
+    margin-bottom:10px;
+}
+
+.recipeComponentsList {
+    padding-left:20px; 
+    margin-bottom:20px;
+}
+
+.recipeComponentsText {
+    margin-bottom:4px; 
+    font-size:0.9rem;
+}
+
+.reviewsTitle {
+    margin-bottom:16px;
+}
+
+.stars {
+    display:flex; 
+    gap:6px; 
+    font-size:1.8rem; 
+    margin-bottom:12px; 
+    cursor:pointer;
+}
+
+.submitButton {
+    margin-top:12px;
+}
+
+.reviewBox {
+    display:flex; 
+    justify-content:space-between; 
+    margin-bottom:4px;
+}
+
+.starsRating {
+    color:#f5a623; 
+    margin-bottom:4px;
+}
+
+.reviewCommentText {
+    font-size:0.875rem; 
+    color:#555;
+}
+
+.noRev {
+    color:#aaa; 
+    font-size:0.875rem;
+}
+
+.recipeViewPicture {
+    width:100%; 
+    border-radius:6px; 
+    margin-bottom:16px;
+}
+
+.rightColumnInfo {
+    display:flex; 
+    justify-content:space-between; 
+    padding:6px 0; 
+    border-bottom:1px solid #f0f0f0;
+}
+
+.difficulty {
+    display:flex; 
+    justify-content:space-between; 
+    padding:6px 0;
+}

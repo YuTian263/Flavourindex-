@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.urls import reverse
 from .services import get_tasty_recipes
 from django.db.models import Q
-from flavourindexApp.models import Recipe
+from flavourindexApp.models import Recipe, Review
 
 # Create your views here.
 def view_recipes(request):
@@ -65,7 +65,22 @@ def index(request):
 
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
-    return render(request, "recipe_detail.html", {"recipe": recipe})
+    reviews = recipe.review_set.all()
+    return render(request, "recipe_detail.html", {"recipe": recipe, "reviews": reviews})
+
+@login_required
+def add_review(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+    if request.method == "POST":
+        rating = int(request.POST.get('rating', 0))
+        comment = request.POST.get('comment', '').strip()
+        Review.objects.create(
+            recipe=recipe,
+            created_by=request.user,
+            rating=rating,
+            comment=comment
+        )
+    return redirect('flavourindexApp:recipe_detail', recipe_id=recipe.id)
 
 
 @login_required
@@ -83,14 +98,14 @@ def recipe_apis(request):
     data = []
     for r in recipe:
         data.append({
-            "id": recipe.id,
-            "title": recipe.title,
-            "description": recipe.description,
-            "category": recipe.foodCategory.name if recipe.foodCategory else None,
-            "ingredients": recipe.ingredients,
-            "instructions": recipe.instructions,
-            "slug": recipe.slug,
-            "picture": recipe.picture.url if recipe.picture else None,
+            "id": r.id,
+            "title": r.title,
+            "description": r.description,
+            "category": r.foodCategory.name if r.foodCategory else None,
+            "ingredients": r.ingredients,
+            "instructions": r.instructions,
+            "slug": r.slug,
+            "picture": r.picture.url if r.picture else None,
         })
     return JsonResponse(data, safe=False)
 
@@ -101,13 +116,32 @@ def all_recipes(request):
 
     # Local recipes
     local_recipes = Recipe.objects.all()
+    DIFFICULTY_MAP_DISPLAY = {
+        1: "Easy",
+        2: "Medium",
+        3: "Hard",
+    }
+
+    DIFFICULTY_MAP_SEARCH = {
+        "Easy": 1,
+        "easy": 1,
+        "medium": 2,
+        "Medium": 2,
+        "Hard": 3,
+        "hard": 3,
+    }
 
     if query:
-        local_recipes = local_recipes.filter(
+
+        difficulty_number = DIFFICULTY_MAP_SEARCH.get(query)
+        filters = (
             Q(title__icontains=query) |
             Q(description__icontains=query) |
             Q(foodCategory__name__icontains=query)
         )
+        if difficulty_number:
+            filters |= Q(difficulty=difficulty_number)
+        local_recipes = local_recipes.filter(filters)
 
     for recipe in local_recipes:
         combined.append({
@@ -117,11 +151,13 @@ def all_recipes(request):
             "description": recipe.description,
             "image": recipe.picture.url if recipe.picture else None,
             "category": recipe.foodCategory.name if recipe.foodCategory else None,
-            "author": getattr(recipe, "author", None),
+            "author": recipe.created_by,
+            "difficulty": DIFFICULTY_MAP_DISPLAY.get(recipe.difficulty)
         })
 
     # External recipes
     external_recipes = get_tasty_recipes()
+    print("External recipes:", external_recipes)
 
     if query:
         external_recipes = [

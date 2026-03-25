@@ -1,52 +1,56 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Home{% endblock %}
+
+{% block template_css %}
+<link rel="stylesheet" href = "{% static 'css/index.css' %}">
+{% endblock %}
 
 {% block body_block %}
 
 <h2>All Recipes</h2>
-<p style="color:#888; margin-bottom:20px;">Explore your new food haven!</p>
+<p class="subtitle">Explore your new food haven!</p>
 
-<form method="GET" action="" style="margin-bottom:20px; display:flex; gap:8px;">
-    <input type="text" name="query" placeholder="Search recipes..." value="{{ request.GET.q }}" style="max-width:300px;">
+<form method="GET" action="" class="searchBar">
+    <input type="text" name="query" placeholder="Search recipes..." value="{{ request.GET.q }}" class="searchBarInput">
     <button type="submit" class="btn btn-primary">Search</button>
 </form>
 
 {% if user.is_authenticated %}
-<a href="{% url 'flavourindexApp:add_recipe' %}" class="btn btn-primary" style="margin-bottom:24px;">+ Add a Recipe</a>
+<a href="{% url 'flavourindexApp:add_recipe' %}" class="btn btn-primary addRecipeButton">+ Add a Recipe</a>
 {% endif %}
 
 {% if recipes %}
-<div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:16px;">
+<div class="recipeGrid">
     {% for recipe in recipes %}
     <div class="card">
         {% if recipe.image %}
-        <img src="{{ recipe.image }}" alt="{{ recipe.title }}" style="width:100%; height:150px; object-fit:cover; border-radius:4px; margin-bottom:12px;">
+        <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="recipeImage">
         {% endif %}
-        <h4 style="margin-bottom:6px;">{{ recipe.title }}</h4>
-        <p style="font-size:0.85rem; color:#666; margin-bottom:10px;">{{ recipe.description|truncatewords:15 }}</p>
+        <h4 class="indexRecipeTitle">{{ recipe.title }}</h4>
+        <p class="indexRecipeDesc">{{ recipe.description|truncatewords:15 }}</p>
         {% if recipe.category %}
-        <span style="font-size:0.75rem; background:#eee; padding:2px 8px; border-radius:20px; color:#555;">{{ recipe.category }}</span>
+        <span class="indexRecipeCat">{{ recipe.category }}</span>
         {% endif %}
-        <div style="margin-top:14px; display:flex; justify-content:space-between; align-items:center;">
-            <small style="color:#aaa;">
-                {% if recipe.author %}
-                    By {{ recipe.author.username }}
-                {% else %}
-                    From Tasty
-                {% endif %}
+        {% if recipe.difficulty %}
+        <span class="indexRecipeCat">{{ recipe.difficulty }}</span>
+        {% endif %}
+        <div class ="indexRecipeAuthor">
+            <small class="indexRecipeAuthorText">
+                By {{ recipe.author.username|default:"FlavourIndex" }}
             </small>
             {% if recipe.source == "local" %}
-                <a href="{% url 'flavourindexApp:recipe_detail' recipe.id %}" class="btn btn-primary" style="padding:5px 12px; font-size:0.8rem;">View</a>
+                <a href="{% url 'flavourindexApp:recipe_detail' recipe.id %}" class="btn btn-primary viewRecipeButton">View</a>
             {% else %}
-                <span style="font-size:0.8rem; color:#888;">External recipe</span>
+                <span class="indexRecipeExtAuthor">External recipe</span>
             {% endif %}
         </div>
     </div>
     {% endfor %}
 </div>
 {% else %}
-<p style="color:#888;">No recipes yet. Be the first to add one!</p>
+<p class="none">No recipes yet. Be the first to add one!</p>
 {% endif %}
 
 {% endblock %}

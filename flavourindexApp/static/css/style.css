@@ -30,6 +30,12 @@ nav a.logo span {
     color: #5ba3d9;
 }
 
+nav a.logo .logo_icon{
+    vertical-align:middle; 
+    margin-right:6px; 
+    margin-bottom:2px;
+}
+
 nav .nav-links a {
     color: #ccc;
     text-decoration: none;
@@ -193,4 +199,39 @@ hr {
     border: none;
     border-top: 1px solid #e0e0e0;
     margin: 24px 0;
+}
+
+.title {
+    margin-bottom: 6px;
+}
+
+.subtitle{
+    color:#888; 
+    margin-bottom:20px;
+}
+
+.welcomeBack {
+    color:#888; 
+    font-size:0.875rem; 
+    margin-bottom:16px;
+}
+
+.font0point9 {
+    font-size:0.9rem;
+}
+
+.colourAAA {
+    color:#aaa;
+}
+
+.font0875 {
+    font: size 0.875rem;
+}
+
+.colour888 {
+    color:#888;
+}
+
+.margin6 {
+    margin-bottom:6px;
 }

@@ -1,0 +1,24 @@
+.loginBox {
+    max-width:360px; 
+    margin:0 auto;
+}
+
+.errorMessage {
+    background:#f8d7da; 
+    color:#842029; 
+    padding:8px 12px; 
+    border-radius:4px; 
+    font-size:0.875rem;
+}
+
+.loginButton {
+    width:100%; 
+    margin-top:16px;
+}
+
+.registerLink {
+    text-align:center; 
+    margin-top:14px; 
+    font-size:0.875rem; 
+    color:#888;
+}
